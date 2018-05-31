@@ -6,6 +6,31 @@ Item {
     property var i: 0
     property var j: 0
     MediaPlayer {
+        id: preview
+        autoPlay: true
+        muted: true
+        source: wallpaper.configuration.Video
+        onPositionChanged: { preview.pause() }
+        //loops: MediaPlayer.Infinite
+        
+        playbackRate: wallpaper.configuration.Rate
+//         playlist: Playlist {
+//             id: playlist
+//             playbackMode: Playlist.Loop
+//             property var loaded: loadPlayList()
+//             onLoaded: shuffleList()
+//         }
+        //
+    }
+
+    VideoOutput {
+        //fillMode: VideoOutput.PreserveAspectCrop
+        fillMode: VideoOutput.PreserveAspectFit
+        anchors.fill: parent
+        source: preview
+    }
+    
+    MediaPlayer {
         id: mediaplayer
         autoPlay: true
         muted: wallpaper.configuration.Muted
@@ -18,10 +43,12 @@ Item {
             property var loaded: loadPlayList()
             onLoaded: shuffleList()
         }
+        //onPositionChanged: { preview.pause() }
     }
-
+    
     VideoOutput {
-        fillMode: VideoOutput.PreserveAspectCrop
+        //fillMode: VideoOutput.PreserveAspectCrop
+        fillMode: VideoOutput.PreserveAspectFit
         anchors.fill: parent
         source: mediaplayer
     }
